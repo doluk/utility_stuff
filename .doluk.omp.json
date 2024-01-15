@@ -188,6 +188,16 @@
             "style": "powerline",
             "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 ",
             "type": "battery"
+          },
+          {
+            "background": "#0077c2",
+            "foreground": "#ffffff",
+            "invert_powerline": true,
+            "leading_diamond": "\ue0b6",
+            "style": "diamond",
+            "template": "{{ .Name }}",
+            "trailing_diamond": "\ue0b4",
+            "type": "shell"
           }
         ],
         "type": "rprompt"
@@ -195,5 +205,5 @@
     ],
     "console_title_template": "{{.Shell}}",
     "final_space": true,
-    "version": 2,
+    "version": 2
   }
