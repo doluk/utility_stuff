@@ -196,13 +196,4 @@
     "console_title_template": "{{.Shell}}",
     "final_space": true,
     "version": 2,
-    "profiles":
-    {
-        "defaults":
-        {
-            "font":
-            {
-                "face": "MesloLGM Nerd Font"
-            }
-        }
   }
