@@ -23,7 +23,7 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#458588",
-          "template": " \uea83 {{ .Path }}",
+          "template": " \uea83 {{ path .Path .Location }}",
           "properties": {
             "folder_separator_icon": "/",
             "home_icon": "~",
@@ -44,7 +44,7 @@
           ],
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b4",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "template": " {{ url .UpstreamIcon .UpstreamURL }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
           "properties": {
             "branch_max_length": 25,
             "fetch_stash_count": true,
@@ -142,15 +142,48 @@
           "foreground": "#111111",
           "background": "#ffff66",
           "template": " \uf0ad "
+        },
+        {
+          "type": "executiontime",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "invert_powerline": false,
+          "foreground": "#ffffff",
+          "background": "#83769c",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b4",
+          "template": "{{ if eq .Shell \"bash\" }} {{ .FormattedMs }} {{ end }}",
+          "properties": {
+            "always_enabled": true,
+            "style": "dallas"
+          }
+        },
+        {
+          "type": "status",
+          "style": "diamond",
+          "foreground": "#ffffff",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#000000{{ end }}"
+          ],
+          "background": "#00897b",
+          "background_templates": [
+            "{{ if gt .Code 0 }}#e91e63{{ end }}"
+          ],
+          "trailing_diamond": "\ue0b4",
+          "powerline_symbol": "\ue0b0",
+          "template": "{{ if eq .Shell \"bash\" }} {{ if eq .Code 0 }}\uf00c{{ else }}\uf071 {{.String}} {{ reason .Code }}{{ end }} {{ end }}",
+          "properties": {
+            "always_enabled": true
+          }
         }
       ]
     },
     {
-      "type": "prompt",
-      "alignment": "right",
+      "type": "rprompt",
       "segments": [
         {
           "type": "status",
+          "alias": "statusr",
           "style": "plain",
           "foreground": "#ffffff",
           "foreground_templates": [
@@ -162,7 +195,7 @@
           ],
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
-          "template": "<background,transparent>\ue0b6</>{{ if eq .Code 0 }}\uf00c{{ else }}\uf071 {{.String}} {{ reason .Code }}{{ end }} ",
+          "template": "{{if ne .Shell \"bash\"}}<background,transparent>\ue0b6</>{{ if eq .Code 0 }}\uf00c{{ else }}\uf071 {{.String}} {{ reason .Code }}{{ end }} {{end}}",
           "properties": {
             "always_enabled": true
           }
@@ -170,15 +203,17 @@
         {
           "type": "executiontime",
           "style": "plain",
+          "alias": "exectime",
           "invert_powerline": true,
           "leading_diamond": "\ue0b2",
           "trailing_diamond": "\ue0b4",
           "powerline_symbol": "\ue0b2",
           "foreground": "#ffffff",
           "background": "#83769c",
-          "template": "<#83769c,parentBackground>\ue0b2</> {{ .FormattedMs }}<#83769c,transparent>\ue0b4</>",
+          "template": "{{if ne .Shell \"bash\"}}<#83769c,parentBackground>\ue0b2</> {{ .FormattedMs }}<#83769c,transparent>\ue0b4</>{{end}}",
           "properties": {
-            "always_enabled": true
+            "always_enabled": true,
+            "style": "dallas"
           }
         }
       ]
